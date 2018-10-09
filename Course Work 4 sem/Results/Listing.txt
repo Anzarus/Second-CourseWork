@@ -1,0 +1,69 @@
+0000		DATA SEGMENT 
+0000			Byte1 DB 1010110b
+0001			Byte2 DB -011011b
+0002			Six1 DW 752h
+0004			Six2 DW -8D4h
+0006			Des1 DD 17036
+000A			Des2 DD -46870
+000E			a db -1
+000F			b dw -1
+			;Error 8
+0011			c dd -1
+0015		DATA ENDS
+
+0000		CODE SEGMENT 
+0000		main:
+0000			Cli	
+0001			Inc	al
+0003			Mov	bh,5*9-4*(16-7)
+0005			Mov	bh,5+7
+0007			Dec	Six1[ecx]
+000E			Dec	Six1[ebp]
+0016			Dec	 ss :Six1[ebp]
+001D			Add	eax,ecx
+001F			Add	eax,c[ebp]
+			;Error 21
+0021			Inc	ebp
+0022			Mov	eax,100h*(5-100110b)+5Fh
+0027			Dec	Des2[esi]
+002D			Add	Des1[ebx],edx
+0033			Cmp	bh, es :Six2[ebp]
+003A			Jnb	step
+0040			Add	Byte2[edi],al
+0046			Or	Des1[edx],-9*8-8*(33-14)
+0050			Or	 ss :Byte1[eax],1F5h-9*5*(15-8)
+0058		step:
+0058			Cmp	eax,Byte2[edx]
+005E			Jnb	step2
+0064			Add	bl,ecx
+0066		step2:
+0066			Jnb	step2
+006C			Or	Six2[esi],(1001001b-654)*101b-1Fh
+0075			Or	 cs :Des2[edi],1011110b
+007D		CODE ENDS 
+			END
+
+                    N a m e       	Size  	Length	Align	Combine Class
+
+CODE                              	32 BIT	007D	PARA	NONE
+DATA                              	32 BIT	0015	PARA	NONE
+
+
+
+                    N a m e       	Type  	Value	Attr
+
+A                                 	L DB  	000E	DATA
+BYTE1                             	L DB  	0000	DATA
+BYTE2                             	L DB  	0001	DATA
+C                                 	L DD  	0011	DATA
+DES1                              	L DD  	0006	DATA
+DES2                              	L DD  	000A	DATA
+MAIN                              	L NEAR	0000	CODE
+SIX1                              	L DW  	0002	DATA
+SIX2                              	L DW  	0004	DATA
+STEP                              	L NEAR	0058	CODE
+STEP2                             	L NEAR	0066	CODE
+
+@FILENAME                         	TEXT  	asm1
+
+2	Errors
